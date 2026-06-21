@@ -11,7 +11,7 @@ body{
             rgba(255, 255, 255, .03) 1px,
             transparent 1px
         );
-        background-size: 24px 24px;
+    background-size: 24px 24px;
 }
 
 .container{
@@ -34,7 +34,7 @@ body{
 .card:hover{
     transform: scale(1.05) translateY(-5px);
     box-shadow:
-        0 0 25px #22c55e;,
+        0 0 25px #22c55e,
         inset 0 0 15px rgba(34, 197, 94, .4);
 }
 

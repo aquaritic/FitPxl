@@ -11,19 +11,27 @@
         <div class="background"></div>
         <div class = "container">
             <h1>FitPxl</h1>
-
-            <div class = "xpBar">
-                <div class = "xpAmount" id="xpAmount">
-
-                </div>
-
-                <p id="xpText">Level 1 [0/100 XP]</p>
-            </div>
             <div class = "card">
                 <h2>Player Stats</h2>
                 <p>Level: <span id="level">1</span></p>
                 <p>XP: <span id ="xp">0</span></p>
                 <p>Workouts: <span id="workouts">0</span></p>
+            </div>
+            <div class = "card">
+                <h2>Achievments</h2>
+                <div id="achievements"></div>
+            </div>
+            <div class ="card">
+                <h2>Daily Quest</h2>
+                <p id="dailyQuest">Complete a workout</p>
+                <h2>Weekly Quest</h2>
+                <p id="weeklyQuest">Complete 3 workouts</p>
+                <h2>Monthly Quest</h2>
+                <p id="monthlyQuest">Maintain a 21 day streak</p>
+            </div>
+            <div class = "xpBar">
+                <div class = "xpAmount" id="xpAmount"></div>
+                <p id="xpText">Level 1 [0 / 100 XP]</p>
             </div>
             <div class = "card">
                 <h2>🔥Streak</h2>
@@ -32,6 +40,7 @@
             <div class = "card">
                 <h2>Weight</h2>
                 <p id="weight">N/A</p>
+                <button id="logWeight">Log Weight</button>
             </div>
             <button id="logWorkout">
                 Log Workout
@@ -40,5 +49,3 @@
         <script src = "script.js"></script>
     </body>
 </html>
-
-note for later: get the pixel font (google fonts), revamp the ui with hovering, pixelated background, glow, player stats, custom pixel icons
