@@ -1,10 +1,14 @@
-//note for later: get the pixel font (google fonts), revamp the ui with hovering, pixelated background, glow, player stats, custom pixel icons
-
 let level = 1;
 let xp = 0;
 let workouts = 0;
 let streak = 0;
 let currentWeight = localStorage.getItem("weight") || "N/A";
+let dailyWorkouts = Number(localStorage.getItem("dailyWorkouts")) || 0;
+let weeklyWorkouts = Number(localStorage.getItem("weeklyWorkouts")) || 0;
+let monthlyStreak = Number(localStorage.getItem("monthlyStreak")) || 0;
+let lastWorkoutDate = localStorage.getItem("lastWorkoutDate") || null;
+let lastWeeklyReset = localStorage.getItem("lastWeeklyReset") || null;
+let lastMonthlyReset = localStorage.getItem("lastMonthlyReset") || null;
 
 const fill = document.querySelector(".xpAmount");
 
@@ -20,7 +24,15 @@ document.getElementById("logWorkout").addEventListener("click", () => {
         alert("LVLED UP TO " + level +"!");
     }
 
-    streak++;
+    dailyWorkouts++;
+    weeklyWorkouts++;
+    monthlyWorkouts++;
+
+    localStorage.setItem("dailyWorkouts", dailyWorkouts);
+    localStorage.setItem("weeklyWorkouts", weeklyWorkouts);
+    localStorage.setItem("monthlyStreak", monthlyStreak);
+
+    updateStreak();
     saveData();
     update();
 });
@@ -33,6 +45,7 @@ document.getElementById("logWeight").addEventListener("click", () => {
     localStorage.setItem("weight", currentWeight);
 
     document.getElementById("weight").textContent = currentWeight;
+    saveData();
 });
 
 document.getElementById("xpText").textContent = `Level ${level} • ${xp} / ${level*100} XP`;
@@ -42,6 +55,7 @@ function saveData(){
     localStorage.setItem("level", level);
     localStorage.setItem("workouts", workouts);
     localStorage.setItem("streak", streak);
+    localStorage.setItem("weight", currentWeight);
 }
 
 function loadData(){
@@ -50,6 +64,30 @@ function loadData(){
     workouts = Number(localStorage.getItem("workouts")) || 0;
     streak = Number(localStorage.getItem("streak")) || 0;
     currentWeight = localStorage.getItem("weight") || "N/A";
+}
+
+function updateStreak(){
+    const currentDate = today();
+
+    if(!lastWorkoutDate){
+        lastWorkoutDate = currentDate();
+        localStorage.setItem("lastWorkoutDate", currentDate);
+        return;
+    }
+
+    const last = new Date(lastWorkoutDate);
+    const now = new Date(currentDate);
+    const diff = (now - last) / (1000 * 60 * 60 * 24);
+
+    if(diff === 1){
+        streak++;
+    } else if (diff > 1){
+        streak = 0;
+    }
+
+    lastWorkoutDate = currentDate;
+    localStorage.setItem("streak", streak);
+    localStorage.setItem("lastWorkoutDate", lastWorkoutDate);
 }
 
 function updateAchievements(){
@@ -93,6 +131,69 @@ function updateXP(){
     fill.style.width = percent + "%";
 }
 
+function today(){
+    return new Date().toISOString().split("T")[0];
+}
+
+function dailyReset(){
+    const currentDate = today();
+
+    if(lastWorkoutDate !== currentDate){
+        dailyWorkouts = 0;
+        localStorage.setItem("dailyWorkouts", dailyWorkouts);
+    }
+}
+
+function weeklyReset(){
+    const today = new Date();
+    const currentDate = today();
+
+    if(!lastWeeklyReset){
+        lastWeeklyReset = currentDate;
+        localStorage.setItem("lastWeeklyReset", lastWeeklyReset);
+        return;
+    }
+
+    const lastReset = new Date(lastWeeklyReset);
+    const newWeek = today.getDay() === 1 && lastReset.getDay() !== 1;
+
+    if(newWeek){
+        weeklyWorkouts = 0;
+        lastWeeklyReset = currentDate;
+
+        localStorage.setItem("weeklyWorkouts", weeklyWorkouts);
+        localStorage.setItem("lastWeeklyReset", lastWeeklyReset);
+    }
+}
+
+function monthlyReset(){
+    const today = new Date();
+    const currentDate = today();
+
+    if(!lastMonthlyReset){
+        lastMonthlyReset = currentDate;
+        localStorage.setItem("lastMonthlyReset", lastMonthlyReset);
+        return;
+    }
+
+    const lastReset = new Date(lastMonthlyReset);
+    const newMonth = today.getMonth() !== lastReset.getMonth();
+
+    if(newMonth){
+        monthlyStreak = 0;
+        lastMonthlyReset = currentDate;
+
+        localStorage.setItem("monthlyStreak", monthlyStreak);
+        localStorage.setItem("lastMonthlyReset", lastMonthlyReset);
+    }
+}
+
+function reset(){
+    dailyReset();
+    weeklyReset();
+    monthlyReset();
+}
+
 function update(){
     const xpNeeded = level * 100;
 
@@ -114,4 +215,5 @@ function update(){
 }
 
 loadData();
+reset();
 update();

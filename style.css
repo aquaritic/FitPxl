@@ -41,8 +41,8 @@ body{
 .xpBar{
     height: 30px;
     background: #111825;
-    border-radius: 0px;
     border: 3px solid white;
+    margin-bottom: 10px;
 }
 
 .xpAmount{
@@ -56,7 +56,8 @@ body{
             #4ade80 10px,
             #4ade80 20px
         );
-    transition: .5s;
+    box-shadow: 0 0 10px #22c55e;
+    transition: width .5s ease-in-out;
 }
 
 button{
@@ -77,4 +78,22 @@ button:hover{
 
 h1, h2, h3 {
     font-family: "Press Start 2P", cursive;
+}
+
+.background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(#00ff88 1px, transparent 1px);
+    background-size: 30px 30px;
+    opacity: .1;
+    z-index: -1;
+    animation: scrollBg 15s linear infinite;
+}
+
+@keyframes scrollBg {
+    from {transform: translateY(0);}
+    to {transform: translateY(30px);}
 }
