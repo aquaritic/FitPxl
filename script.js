@@ -11,6 +11,61 @@ let lastWeeklyReset = localStorage.getItem("lastWeeklyReset") || null;
 let lastMonthlyReset = localStorage.getItem("lastMonthlyReset") || null;
 
 const fill = document.querySelector(".xpAmount");
+const workoutWindow = document.getElementById("workoutWindow");
+const exerciseList = document.getElementById("exerciseList");
+
+document.getElementById("logWorkoutButton").addEventListener("click", () => {
+    workoutWindow.classList.remove("hiddenWindow");
+    exerciseList.innerHTML = "";
+    exerciseList.appendChild(createExerciseEntry());
+});
+
+document.getElementById("cancelWorkout").addEventListener("click", () => {
+    workoutWindow.classList.add("hiddenWindow");
+});
+
+document.getElementById("addExercise").addEventListener("click", () => {
+    exerciseList.appendChild(createExerciseEntry());
+});
+
+document.getElementById("saveWorkout").addEventListener("click", () => {
+    const exercises = [];
+
+    document.querySelectorAll(".exerciseEntry").forEach(entry => {
+        const name = entry.querySelector(".eName").value.trim();
+        const sets = Number(entry.querySelector(".eName").value);
+        const reps = Number(entry.querySelector(".eReps").value);
+        const weight = Number(entry.querySelector(".eWeight").value);
+        const other = entry.querySelector(".eOther").value.trim();
+
+        if(!name || !sets || !reps) return;
+
+        exercises.push({name, sets, reps, weight, other});
+    });
+
+    if(exercises.length === 0) return;
+
+    const workout = {
+        date: getToday();
+        exercises: exercises
+    };
+
+    const history = JSON.parse(localStorage.getItem("workoutHistory") || "[]");
+    history.push(workout);
+    localStorage.setItem("workoutHistory", JSON.stringify(history));
+
+    dailyWorkouts++;
+    weeklyWorkouts++;
+    monthlyStreak++;
+
+    localStorage.setItem("dailyWorkouts", dailyWorkouts);
+    localStorage.setItem("weeklyWorkouts", weeklyWorkouts);
+    localStorage.setItem("monthlyStreak", monthlyStreak);
+
+    updateStreak();
+    workoutWindow.classList.add("hiddenWindow");
+    update();
+});
 
 document.getElementById("logWorkout").addEventListener("click", () => {
     workouts++;
@@ -64,6 +119,25 @@ function loadData(){
     workouts = Number(localStorage.getItem("workouts")) || 0;
     streak = Number(localStorage.getItem("streak")) || 0;
     currentWeight = localStorage.getItem("weight") || "N/A";
+}
+
+function createExcerciseEntry(){
+    const div = document.createElement("div");
+    div.classList.add("exerciseEntry")
+
+    div.innerHTML = `
+        <input type="text" placeholder="Exercise Name" class = "eName">
+        <input type="number" placeholder="Sets" class = "eSets">
+        <input type="number" placeholder="Reps" class = "eReps">
+        <input type="number" placeholder="Weight" class = "eWeight">
+        <input type="text" placeholder="Other (RIR, etc.)" class = "eOther">
+        <button class="removeExercise">X</button>
+        `;
+
+    div.querySelector(".removeExercise").addEventListener("click", () => {
+        div.remove();
+    });
+    return div;
 }
 
 function updateStreak(){
