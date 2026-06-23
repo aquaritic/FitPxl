@@ -10,7 +10,7 @@ let lastWorkoutDate = localStorage.getItem("lastWorkoutDate") || null;
 let lastWeeklyReset = localStorage.getItem("lastWeeklyReset") || null;
 let lastMonthlyReset = localStorage.getItem("lastMonthlyReset") || null;
 
-const fill = document.querySelector(".xpAmount");
+const fill = document.querySelector("xpAmount");
 const workoutWindow = document.getElementById("workoutWindow");
 const exerciseList = document.getElementById("exerciseList");
 
@@ -67,7 +67,7 @@ document.getElementById("saveWorkout").addEventListener("click", () => {
     update();
 });
 
-document.getElementById("logWorkout").addEventListener("click", () => {
+document.getElementById("logWorkoutBtn").addEventListener("click", () => {
     workouts++;
     xp+=25;
 
@@ -205,6 +205,38 @@ function updateXP(){
     fill.style.width = percent + "%";
 }
 
+function updateRecentWorkouts(){
+    const container = document.getElementById("recentWorkouts");
+    const history = JSON.parse(localStorage.getItem("workoutHistory") || "[]");
+
+    container.innerHTML = "";
+
+    if(history.length === 0){
+        container.innerHTML = "<p>No workouts logged</p>";
+        return;
+    }
+
+    const recent = history.slice(-5).reverse();
+
+    recent.forEach(workout => {
+        const div = document.createElement("div");
+        div.classList.add("recentWorkoutItem");
+
+        let html = `<h3>${workout.date}</h3>`;
+
+        workout.exercises.forEach(ex => {
+            html += `<p>
+                <strong>${ex.name}</strong> -
+                ${ex.sets}×${ex.reps}
+                ${ex.weight ? `@ ${ex.weight} lbs` : ""}
+                ${ex.other ? `(${ex.other})` : ""}
+            </p>`;
+        });
+        div.innerHTML = html;
+        container.appendChild(div);
+    });
+}
+
 function today(){
     return new Date().toISOString().split("T")[0];
 }
@@ -278,7 +310,6 @@ function update(){
     document.getElementById("xpText").textContent = `Level ${level} • ${xp} / ${xpNeeded} XP`;
     document.getElementById("xpAmount").style.width = (xp/xpNeeded) * 100 + "%";
     document.getElementById("weight").textContent = currentWeight;
-    document.getElementById("xpText").textContent = `Level ${level} [${xp} / ${xpNeeded} XP]`;
     document.getElementById("xpAmount").style.width = (xp / xpNeeded) * 100 + "%";
 
     updateXP();
@@ -286,6 +317,7 @@ function update(){
     updateDailyQuest();
     updateWeeklyQuest();
     updateMonthlyQuest();
+    updateRecentWorkouts();
 }
 
 loadData();
