@@ -14,7 +14,7 @@ const fill = document.querySelector(".xpAmount");
 const workoutWindow = document.getElementById("workoutWindow");
 const exerciseList = document.getElementById("exerciseList");
 
-document.getElementById("logWorkoutButton").addEventListener("click", () => {
+document.getElementById("logWorkoutBtn").addEventListener("click", () => {
     workoutWindow.classList.remove("hiddenWindow");
     exerciseList.innerHTML = "";
     exerciseList.appendChild(createExerciseEntry());
@@ -33,7 +33,7 @@ document.getElementById("saveWorkout").addEventListener("click", () => {
 
     document.querySelectorAll(".exerciseEntry").forEach(entry => {
         const name = entry.querySelector(".eName").value.trim();
-        const sets = Number(entry.querySelector(".eName").value);
+        const sets = Number(entry.querySelector(".eSets").value);
         const reps = Number(entry.querySelector(".eReps").value);
         const weight = Number(entry.querySelector(".eWeight").value);
         const other = entry.querySelector(".eOther").value.trim();
@@ -46,7 +46,7 @@ document.getElementById("saveWorkout").addEventListener("click", () => {
     if(exercises.length === 0) return;
 
     const workout = {
-        date: getToday();
+        date: today(),
         exercises: exercises
     };
 
@@ -121,7 +121,7 @@ function loadData(){
     currentWeight = localStorage.getItem("weight") || "N/A";
 }
 
-function createExcerciseEntry(){
+function createExerciseEntry(){
     const div = document.createElement("div");
     div.classList.add("exerciseEntry")
 
@@ -144,7 +144,7 @@ function updateStreak(){
     const currentDate = today();
 
     if(!lastWorkoutDate){
-        lastWorkoutDate = currentDate();
+        lastWorkoutDate = currentDate;
         localStorage.setItem("lastWorkoutDate", currentDate);
         return;
     }

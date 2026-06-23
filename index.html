@@ -9,49 +9,56 @@
     </head>
     <body>
         <div class="background"></div>
-        <div class = "container">
-            <h1>FitPxl</h1>
-            <div class = "card">
-                <h2>Player Stats</h2>
-                <p>Level: <span id="level">1</span></p>
-                <p>XP: <span id ="xp">0</span></p>
-                <p>Workouts: <span id="workouts">0</span></p>
-            </div>
-            <div class = "card">
+        <div id="dashboard">
+            <!--Profile/XP-->
+            <section id="profileBar">
+                <div id="profileLeft">
+                    <div id="avatar"></div>
+                    <div id="profileInfo">
+                        <h2 id="username">Player</h2>
+                        <p id="levelDisplay">Level <span id="level">1</span></p>
+                    </div>
+                </div>
+                <div id="xpContainer">
+                    <div id="xpAmount"></div>
+                </div>
+            </section>
+            <!--Stats/Streak/Quests/Achievements-->
+            <section id="topRow">
+                <div class="card" id="statsCard">
+                    <h2>Player Stats</h2>
+                    <p>XP: <span id="xp">0</span></p>
+                    <p>Workouts: <span id="workouts">0</span></p>
+                    <p>Weight: <span id="weight">N/A</span></p>
+                </div>
+                <div class="card" id="streakCard">
+                    <h2>Streak</h2>
+                    <p id="streak">0 Days</p>
+                </div>
+                <div class="card" id="questsCard">
+                    <h2>Daily Quest</h2>
+                    <p id="dailyQuest">Complete a workout</p>
+                    <h2>Weekly Quest</h2>
+                    <p id="weeklyQuest">Complete 3 workouts</p>
+                    <h2>Monthly Quest</h2>
+                    <p id="monthlyQuest">Maintain a 21 day streak</p>
+                </div>
+            </section>
+            <section class="card" id="achievementsCard">
                 <h2>Achievements</h2>
                 <div id="achievements"></div>
-            </div>
-            <div class ="card">
-                <h2>Daily Quest</h2>
-                <p id="dailyQuest">Complete a workout</p>
-                <h2>Weekly Quest</h2>
-                <p id="weeklyQuest">Complete 3 workouts</p>
-                <h2>Monthly Quest</h2>
-                <p id="monthlyQuest">Maintain a 21 day streak</p>
-            </div>
-            <div class = "xpBar">
-                <div class = "xpAmount" id="xpAmount"></div>
-            </div>
-            <p id="xpText">Level 1 [0 / 100 XP]</p>
-            <div class = "card">
-                <h2>🔥Streak</h2>
-                <p id="streak">0 Days</p>
-            </div>
-            <div class = "card">
-                <h2>Weight</h2>
-                <p id="weight">N/A</p>
-                <button id="logWeight">Log Weight</button>
-            </div>
-            <div id="workoutWindow" class="hiddenWindow">
-                <div class="workoutBox">
-                    <h2>Log Workout</h2>
-                    <div id="exerciseList"></div>
-                    <button id ="addExercise">Add Exercise</button>
-                    <button id ="saveWorkout">Save Workout</button>
-                    <button id ="cancelWorkout">Cancel</button>
+            </section>
+            <!--Workouts-->
+            <section id="bottomRow">
+                <div class="card" id="recentWorkoutsCard">
+                    <h2>Recent Workouts</h2>
+                    <div id="recentWorkouts"></div>
                 </div>
-            </div>
-            <button id ="logWorkoutBtn">Log Workout</button>
+                <div class="card" id="logWorkoutCard">
+                    <h2>Log Workout</h2>
+                    <button id="logWorkoutBtn">Log Workout</button>
+                </div>
+            </section>
         </div>
         <script src = "script.js"></script>
     </body>
