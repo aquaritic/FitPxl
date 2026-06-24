@@ -67,31 +67,6 @@ document.getElementById("saveWorkout").addEventListener("click", () => {
     update();
 });
 
-document.getElementById("logWorkoutButton").addEventListener("click", () => {
-    workouts++;
-    xp+=25;
-
-    const xpNeeded = level * 100;
-
-    if( xp >= xpNeeded){
-        xp -= xpNeeded;
-        level++
-        alert("LVLED UP TO " + level +"!");
-    }
-
-    dailyWorkouts++;
-    weeklyWorkouts++;
-    monthlyStreak++;
-
-    localStorage.setItem("dailyWorkouts", dailyWorkouts);
-    localStorage.setItem("weeklyWorkouts", weeklyWorkouts);
-    localStorage.setItem("monthlyStreak", monthlyStreak);
-
-    updateStreak();
-    saveData();
-    update();
-});
-
 document.getElementById("logWeight").addEventListener("click", () => {
     const newWeight = prompt("Enter your bodyweight")
     if(!newWeight) return;
