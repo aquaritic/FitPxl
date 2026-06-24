@@ -1,3 +1,8 @@
+html, body{
+    height: 100%;
+    overflow: hidden;
+}
+
 body{
     background-color: #0d1117;
     color: white;
@@ -109,8 +114,12 @@ p{
     z-index: 999;
 }
 
-.hiddenWindow{
+#workoutWindow.hiddenWindow{
     display: none;
+}
+
+#workoutWindow:not(.hiddenWindow){
+    display: flex;
 }
 
 .workoutBox{
@@ -121,11 +130,14 @@ p{
 }
 
 #dashboard{
+    height: 100%;
     width: 95%;
+    overflow: hidden;
     max-width: 1600px;
     margin: auto;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 140px;
     gap: 20px;
     padding: 20px;
 }
