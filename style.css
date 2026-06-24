@@ -249,7 +249,7 @@ p{
     grid-row: 2/4;
 }
 
-streakCard{
+#streakCard{
     grid-column: 2;
     grid-row: 3;
 }
