@@ -10,7 +10,7 @@ let lastWorkoutDate = localStorage.getItem("lastWorkoutDate") || null;
 let lastWeeklyReset = localStorage.getItem("lastWeeklyReset") || null;
 let lastMonthlyReset = localStorage.getItem("lastMonthlyReset") || null;
 
-const fill = document.querySelector("xpAmount");
+const fill = document.querySelector("#xpAmount");
 const workoutWindow = document.getElementById("workoutWindow");
 const exerciseList = document.getElementById("exerciseList");
 
@@ -67,7 +67,7 @@ document.getElementById("saveWorkout").addEventListener("click", () => {
     update();
 });
 
-document.getElementById("logWorkoutBtn").addEventListener("click", () => {
+document.getElementById("logWorkoutButton").addEventListener("click", () => {
     workouts++;
     xp+=25;
 
@@ -81,7 +81,7 @@ document.getElementById("logWorkoutBtn").addEventListener("click", () => {
 
     dailyWorkouts++;
     weeklyWorkouts++;
-    monthlyWorkouts++;
+    monthlyStreak++;
 
     localStorage.setItem("dailyWorkouts", dailyWorkouts);
     localStorage.setItem("weeklyWorkouts", weeklyWorkouts);
@@ -102,8 +102,6 @@ document.getElementById("logWeight").addEventListener("click", () => {
     document.getElementById("weight").textContent = currentWeight;
     saveData();
 });
-
-document.getElementById("xpText").textContent = `Level ${level} • ${xp} / ${level*100} XP`;
 
 function saveData(){
     localStorage.setItem("xp", xp);
@@ -307,7 +305,6 @@ function update(){
     document.getElementById("xp").textContent = xp;
     document.getElementById("workouts").textContent = workouts;
     document.getElementById("streak").textContent = streak +" Days";
-    document.getElementById("xpText").textContent = `Level ${level} • ${xp} / ${xpNeeded} XP`;
     document.getElementById("xpAmount").style.width = (xp/xpNeeded) * 100 + "%";
     document.getElementById("weight").textContent = currentWeight;
     document.getElementById("xpAmount").style.width = (xp / xpNeeded) * 100 + "%";
