@@ -224,7 +224,7 @@ function dailyReset(){
 }
 
 function weeklyReset(){
-    const today = new Date();
+    const now = new Date();
     const currentDate = today();
 
     if(!lastWeeklyReset){
@@ -234,7 +234,7 @@ function weeklyReset(){
     }
 
     const lastReset = new Date(lastWeeklyReset);
-    const newWeek = today.getDay() === 1 && lastReset.getDay() !== 1;
+    const newWeek = now.getDay() === 1 && lastReset.getDay() !== 1;
 
     if(newWeek){
         weeklyWorkouts = 0;
@@ -246,7 +246,7 @@ function weeklyReset(){
 }
 
 function monthlyReset(){
-    const today = new Date();
+    const now = new Date();
     const currentDate = today();
 
     if(!lastMonthlyReset){
@@ -256,7 +256,7 @@ function monthlyReset(){
     }
 
     const lastReset = new Date(lastMonthlyReset);
-    const newMonth = today.getMonth() !== lastReset.getMonth();
+    const newMonth = now.getMonth() !== lastReset.getMonth();
 
     if(newMonth){
         monthlyStreak = 0;
