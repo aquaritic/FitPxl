@@ -17,6 +17,7 @@ body{
             transparent 1px
         );
     background-size: 24px 24px;
+    zoom: .8;
 }
 
 .card{
