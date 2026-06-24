@@ -282,7 +282,6 @@ function update(){
     document.getElementById("streak").textContent = streak +" Days";
     document.getElementById("xpAmount").style.width = (xp/xpNeeded) * 100 + "%";
     document.getElementById("weight").textContent = currentWeight;
-    document.getElementById("xpAmount").style.width = (xp / xpNeeded) * 100 + "%";
 
     updateXP();
     updateAchievements();

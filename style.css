@@ -95,10 +95,6 @@ p{
     to {transform: translateY(30px);}
 }
 
-.hiddenWindow{
-    display: none;
-}
-
 #workoutWindow{
     position: fixed;
     top: 0;
@@ -110,6 +106,10 @@ p{
     justify-content: center;
     align-items: center;
     z-index: 999;
+}
+
+.hiddenWindow{
+    display: none;
 }
 
 .workoutBox{
@@ -190,4 +190,11 @@ p{
 
 .recentWorkoutItem:last-child{
     border-bottom: none;
+}
+
+#statsCard #logWeight{
+    width: auto;
+    padding: 10px 15px;
+    margin-top: 10px;
+    font-size: 12px;
 }
